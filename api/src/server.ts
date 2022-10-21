@@ -1,5 +1,5 @@
 'use strict';
-import ContractProvider from "./services/ContractProvider";
+import ContractProvider from "./services/1.ContractProvider";
 import { Server, Request, ResponseToolkit } from '@hapi/hapi';
 import { compose, Manifest } from '@hapi/glue';
 import plugins from "./plugins";

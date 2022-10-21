@@ -1,5 +1,5 @@
 import executeTransaction from "../utils/ExeTrnx";
-import {web3, contract, networkId} from "../services/ContractProvider";
+import {web3, contract, networkId} from "./1.ContractProvider";
 
 class Whitelist {
     

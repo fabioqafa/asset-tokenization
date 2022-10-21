@@ -3,6 +3,8 @@ import Inert from '@hapi/inert';
 import Vision from '@hapi/vision';
 import accountsPlugin from './accountsPlugin';
 import rolesPlugin from './rolesPlugin';
+import smartContractPlugin from './smartContractPlugin';
+import tokenManagementPlugin from './tokenManagementPlugin';
 import whitelistsPlugin from './whitelistsPlugin';
 
 const plugins : PluginObject[] = [
@@ -10,7 +12,9 @@ const plugins : PluginObject[] = [
     Vision,
     accountsPlugin,
     rolesPlugin,
-    whitelistsPlugin
+    whitelistsPlugin,
+    smartContractPlugin,
+    tokenManagementPlugin
 ];
 
 export default plugins;

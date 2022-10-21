@@ -1,5 +1,5 @@
 import executeTransaction from "../utils/ExeTrnx";
-import { web3, contract, networkId } from "./ContractProvider";
+import { web3, contract, networkId } from "./1.ContractProvider";
 import {Account} from 'web3-core';
 
 class AccountsService {
