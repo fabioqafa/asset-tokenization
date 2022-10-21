@@ -10,6 +10,7 @@ const contractProvider = new ContractProvider();
 const manifest: Manifest = {
     server: {
       port: 3000,
+      host: 'localhost',
       router: {
         stripTrailingSlash: true,
       },

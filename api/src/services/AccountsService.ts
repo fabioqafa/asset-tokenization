@@ -1,22 +1,32 @@
-import ContractProvider from "./ContractProvider";
 import executeTransaction from "../utils/ExeTrnx";
 import { web3, contract, networkId } from "./ContractProvider";
-
-const publicKey = "0x6f93DD12FE5d891760a5551F1A56bB9E28de92F9";
-const privateKey = '0x0685bad96bb2b61821cdeaa022418fe05b2e606333c79e6a079f53e8dedbbecf';
+import {Account} from 'web3-core';
 
 class AccountsService {
-    // contractProvider : ContractProvider
-    // constructor() {
-    //     this.contractProvider = new ContractProvider();
-    // }
+    
+    createAccount = async() : Promise<Account> => {
+        const accountData = web3.eth.accounts.create();   
+            
+        return accountData;
+    }
 
     getBalance = async(id : number, address: string) : Promise<number> => {
-        console.log(id, address)
         const balance : number = await contract.methods.balanceOf(address, id).call();
         
         return balance;
     }
+
+    hasRole = async(role: string, address: string) : Promise<boolean> => {
+        const result = await contract.methods.hasRole(role, address).call();
+
+        return result;
+    }
+    
+    isWhitelisted = async(address : string) : Promise<boolean> => {
+        const result = await contract.methods.isWhitelisted(address).call();
+
+        return result;
+    }   
 
 }
 
