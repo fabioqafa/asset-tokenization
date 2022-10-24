@@ -87,16 +87,16 @@ const getDecimalsHandler = async (request : Request, h : ResponseToolkit) => {
 
 const pauseHandler = async (request : Request, h : ResponseToolkit) => {
     const {signerAddress, signerPrivateKey} = request.payload as any;
-    const transactionHash = await smartContractData.pause(signerAddress, signerPrivateKey);
+    const transactionReceipt= await smartContractData.pause(signerAddress, signerPrivateKey);
 
-    return h.response({transactionHash});
+    return h.response({transactionReceipt});
 }
 
 const unpauseHandler = async (request : Request, h : ResponseToolkit) => {
     const {signerAddress, signerPrivateKey} = request.payload as any;
-    const transactionHash = await smartContractData.unpause(signerAddress, signerPrivateKey);
+    const transactionReceipt = await smartContractData.unpause(signerAddress, signerPrivateKey);
 
-    return h.response({transactionHash});
+    return h.response({transactionReceipt});
 }
 
 const isPausedHandler = async (request : Request, h : ResponseToolkit) => {

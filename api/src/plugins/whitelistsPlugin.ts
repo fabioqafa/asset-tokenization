@@ -70,16 +70,17 @@ const whitelist = new Whitelist();
 const addToWhitelistHandler = async (request : Request, h : ResponseToolkit) => {
     const {address} = request.params;
     const {signerAddress, signerPrivateKey} = request.payload as any;
-    const transactionHash = await whitelist.addToWhitelist(address as string, signerAddress as string, signerPrivateKey as string);
-    return h.response({transactionHash}).code(200);
+
+    const transactionReceipt = await whitelist.addToWhitelist(address as string, signerAddress as string, signerPrivateKey as string);
+    return h.response({transactionReceipt}).code(200);
 }
 
 const removeFromWhitelistHandler = async (request : Request, h : ResponseToolkit) => {
     const {address} = request.params;
     const {signerAddress, signerPrivateKey} = request.payload as any;
-    const transactionHash = await whitelist.removeFromWhitelist(address as string, signerAddress as string, signerPrivateKey as string);
+    const transactionReceipt = await whitelist.removeFromWhitelist(address as string, signerAddress as string, signerPrivateKey as string);
 
-    return h.response({transactionHash}).code(200);
+    return h.response({transactionReceipt}).code(200);
 }
 
 export default {

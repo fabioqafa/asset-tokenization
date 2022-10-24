@@ -71,16 +71,16 @@ const tokenManagementService = new TokenManagementService();
 
 const issueTokensHandler = async (request : Request, h : ResponseToolkit) => {
     const {id, amount, signerAddress, signerPrivateKey} = request.payload as any;
-    const transactionHash = await tokenManagementService.issueTokens(id as number, amount as number, signerAddress as string, signerPrivateKey as string);
+    const transactionReceipt = await tokenManagementService.issueTokens(id as number, amount as number, signerAddress as string, signerPrivateKey as string);
 
-    return h.response({transactionHash}).code(200);
+    return h.response({transactionReceipt}).code(200);
 }
 
 const transferTokensHandler = async (request : Request, h : ResponseToolkit) => {
     const {from, to, id, amount, signerAddress, signerPrivateKey} = request.payload as any;
-    const transactionHash = await tokenManagementService.transferTokens(from as string, to as string, id as number, amount as number, signerAddress as string, signerPrivateKey as string);
+    const transactionReceipt = await tokenManagementService.transferTokens(from as string, to as string, id as number, amount as number, signerAddress as string, signerPrivateKey as string);
 
-    return h.response({transactionHash}).code(200);
+    return h.response({transactionReceipt}).code(200);
 }
 
 export default {

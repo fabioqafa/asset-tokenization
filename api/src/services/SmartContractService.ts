@@ -1,5 +1,6 @@
 import {contract, web3, networkId} from "./1.ContractProvider";
 import executeTransaction from "../utils/ExeTrnx";
+import {TransactionReceipt} from "web3-core";
 
 
 class SmartContractData {
@@ -10,18 +11,18 @@ class SmartContractData {
         return decimals;
     }
 
-    pause = async(signerAddress : string, signerPrivateKey : string) : Promise<string> => {
+    pause = async(signerAddress : string, signerPrivateKey : string) : Promise<TransactionReceipt> => {
         const tx = await contract.methods.pause();
-        const transactionHash = await executeTransaction(tx, web3, contract, networkId, signerAddress, signerPrivateKey);
+        const transactionReceipt = await executeTransaction(tx, web3, contract, networkId, signerAddress, signerPrivateKey);
 
-        return transactionHash;
+        return transactionReceipt;
     }
 
-    unpause = async(signerAddress : string, signerPrivateKey : string) : Promise<string> => {
+    unpause = async(signerAddress : string, signerPrivateKey : string) : Promise<TransactionReceipt> => {
         const tx = await contract.methods.unpause();
-        const transactionHash = await executeTransaction(tx, web3, contract, networkId, signerAddress, signerPrivateKey);
+        const transactionReceipt = await executeTransaction(tx, web3, contract, networkId, signerAddress, signerPrivateKey);
 
-        return transactionHash;
+        return transactionReceipt;
     }
 
     isPaused = async() : Promise<boolean> => {

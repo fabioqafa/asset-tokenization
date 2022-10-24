@@ -2,6 +2,7 @@ import { PluginObject } from '@hapi/glue';
 import Inert from '@hapi/inert';
 import Vision from '@hapi/vision';
 import accountsPlugin from './accountsPlugin';
+import assetsManagementPlugin from './assetsManagementPlugin';
 import rolesPlugin from './rolesPlugin';
 import smartContractPlugin from './smartContractPlugin';
 import tokenManagementPlugin from './tokenManagementPlugin';
@@ -14,7 +15,8 @@ const plugins : PluginObject[] = [
     rolesPlugin,
     whitelistsPlugin,
     smartContractPlugin,
-    tokenManagementPlugin
+    tokenManagementPlugin,
+    assetsManagementPlugin
 ];
 
 export default plugins;
