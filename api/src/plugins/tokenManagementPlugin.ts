@@ -24,10 +24,10 @@ const options = {
                         .required(),
                     amount : Joi.number()
                         .required(),
-                    signerAddress : Joi.string()
+                    issuerAddress : Joi.string()
                         .required()
                         .description("Signer of the transaction"),
-                    signerPrivateKey : Joi.string()
+                    issuerPrivateKey : Joi.string()
                         .required()
                         .description("Private key to sign the transaction")
                 })
@@ -70,8 +70,8 @@ const options = {
 const tokenManagementService = new TokenManagementService();
 
 const issueTokensHandler = async (request : Request, h : ResponseToolkit) => {
-    const {id, amount, signerAddress, signerPrivateKey} = request.payload as any;
-    const transactionReceipt = await tokenManagementService.issueTokens(id as number, amount as number, signerAddress as string, signerPrivateKey as string);
+    const {id, amount, issuerAddress, issuerPrivateKey} = request.payload as any;
+    const transactionReceipt = await tokenManagementService.issueTokens(id as number, amount as number, issuerAddress as string, issuerPrivateKey as string);
 
     return h.response({transactionReceipt}).code(200);
 }

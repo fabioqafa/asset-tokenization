@@ -27,22 +27,22 @@ const plugin = {
             handler: totalSupplyHandler
           }
         },
-        {
-          method: 'GET',
-          path: '/assets/{id}/exists',
-          options: {
-            description: 'Checks if asset exists or not',
-            notes: 'notes for later',
-            tags: ['api'],
-            validate : {
-                params : Joi.object({
-                    id : Joi.number()
-                        .required()
-                })
-            },
-            handler: existsHandler
-          }
-        },
+        // {
+        //   method: 'GET',
+        //   path: '/assets/{id}/exists',
+        //   options: {
+        //     description: 'Checks if asset exists or not',
+        //     notes: 'notes for later',
+        //     tags: ['api'],
+        //     validate : {
+        //         params : Joi.object({
+        //             id : Joi.number()
+        //                 .required()
+        //         })
+        //     },
+        //     handler: existsHandler
+        //   }
+        // },
       ]);
     },
   };
@@ -51,17 +51,20 @@ const assetsManagementService = new AssetsManagementService();
 
 const totalSupplyHandler = async (request: Request, h: ResponseToolkit) => {
     const {id} = request.params;
-    const result = await assetsManagementService.totalSupply(id);
-
-    return h.response({id, result});
+    const totalSupply = await assetsManagementService.totalSupply(id);
+    if (totalSupply > 0)
+      {return h.response({id, totalSupply}).code(200);}
+    else 
+      {return h.response().code(404);}
+    
 }
 
-const existsHandler = async (request : Request, h : ResponseToolkit) => {
-    const {id} = request.params;
-    const result = await assetsManagementService.exists(id);
+// const existsHandler = async (request : Request, h : ResponseToolkit) => {
+//     const {id} = request.params;
+//     const result = await assetsManagementService.exists(id);
 
-    return h.response({id, result})
-}
+//     return h.response({id, result})
+// }
 
 export default {
     plugin,

@@ -52,19 +52,19 @@ const rolesService = new RolesService();
 const getMinterRoleHandler = async (request: Request, h: ResponseToolkit) => {
     const minterRole = await rolesService.getMinterRole();
 
-    return h.response({"Minter Role" : minterRole});
+    return h.response({"Minter Role" : minterRole}).code(200);
 }
 
 const getPauserRoleHandler = async (request: Request, h: ResponseToolkit) => {
     const pauserRole = await rolesService.getPauserRole();
 
-    return h.response({"Pauser Role" : pauserRole});
+    return h.response({"Pauser Role" : pauserRole}).code(200);
 }
 
 const getAdminRoleHandler = async (request: Request, h: ResponseToolkit) => {
     const defaultAdminRole = await rolesService.getAdminRole();
 
-    return h.response({"Admin Role" : defaultAdminRole});
+    return h.response({"Admin Role" : defaultAdminRole}).code(200);
 }
 
 export default {

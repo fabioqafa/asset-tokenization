@@ -24,7 +24,7 @@ const options = {
         },
         {
           method: 'GET',
-          path: '/accounts/{address}/balance/{id}',
+          path: '/accounts/{address}/tokens',
           options: {
             description: 'Account Balance',
             notes: 'Shows the balance of the account',
@@ -34,9 +34,11 @@ const options = {
                 address: Joi.string()
                   .required()
                   .description('Address of account'),
-                id: Joi.number()
-                    .required()
-                    .description('Asset id')
+              }),
+              query: Joi.object({
+                token_id: Joi.number()
+                  .required()
+                  .description('Token id')
               })
             },
             handler: getBalanceHandler
@@ -44,7 +46,7 @@ const options = {
         },
         {
           method: 'GET',
-          path: '/accounts/{address}/checkRole/{role}',
+          path: '/accounts/{address}/checkRole',
           options: {
             description: 'Checks address role',
             notes: 'Address and role should be of string type',
@@ -53,7 +55,9 @@ const options = {
               params: Joi.object({
                 address: Joi.string()
                   .required()
-                  .description('Address of account'),
+                  .description('Address of account')
+              }),
+              query : Joi.object({
                 role: Joi.string()
                   .required()
                   .description('Role on smart contract'),
@@ -93,15 +97,17 @@ const options = {
   }
 
   const getBalanceHandler = async (request: Request, h: ResponseToolkit) => {
-    const {id, address} = request.params;
-    const balance = await accountsService.getBalance(id, address);
+    const {address} = request.params;
+    const {token_id} = request.query;
+    const balance = await accountsService.getBalance(token_id, address);
 
-    return h.response({address, balance, id}).code(200);
+    return h.response({address, token_id, balance}).code(200);
   }
 
   const hasRoleHandler = async (request: Request, h: ResponseToolkit) => {
-    const {role, address} = request.params;
-    const hasRole = await accountsService.hasRole(role, address);
+    const {address} = request.params;
+    const {role} = request.query;
+    const hasRole = await accountsService.hasRole(role as string, address);
 
     return h.response({address, role, hasRole});
   }

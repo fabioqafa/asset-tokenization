@@ -64,7 +64,7 @@ const options = {
           },
           {
             method: 'GET',
-            path: '/smartcontractdata/isPaused',
+            path: '/smartcontractdata/status',
             options: {
               description: 'Returns smart contract pause state',
               notes: 'notes',
@@ -89,20 +89,20 @@ const pauseHandler = async (request : Request, h : ResponseToolkit) => {
     const {signerAddress, signerPrivateKey} = request.payload as any;
     const transactionReceipt= await smartContractData.pause(signerAddress, signerPrivateKey);
 
-    return h.response({transactionReceipt});
+    return h.response({transactionReceipt}).code(200);
 }
 
 const unpauseHandler = async (request : Request, h : ResponseToolkit) => {
     const {signerAddress, signerPrivateKey} = request.payload as any;
     const transactionReceipt = await smartContractData.unpause(signerAddress, signerPrivateKey);
 
-    return h.response({transactionReceipt});
+    return h.response({transactionReceipt}).code(200);
 }
 
 const isPausedHandler = async (request : Request, h : ResponseToolkit) => {
     const isPaused = await smartContractData.isPaused();
 
-    return h.response({isPaused}).code(200);
+    return h.response({status : {isPaused} }).code(200);
 }
 
 export default {

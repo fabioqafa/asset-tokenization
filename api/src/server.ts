@@ -43,6 +43,8 @@ const init = async () => {
             return 'Hello World!';
         }
     });
+
+    await contractProvider.setContractData();
 };
 
 process.on('unhandledRejection', (err) => {
@@ -52,7 +54,3 @@ process.on('unhandledRejection', (err) => {
 });
 
 init();
-(async() => {
-    await contractProvider.setContractData();
-
-}) ();
