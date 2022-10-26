@@ -1,8 +1,8 @@
 'use strict';
-import ContractProvider from "./services/1.ContractProvider";
+import ContractProvider from "./v1/services/1.ContractProvider";
 import { Server, Request, ResponseToolkit } from '@hapi/hapi';
 import { compose, Manifest } from '@hapi/glue';
-import plugins from "./plugins";
+import plugins from "./v1/plugins";
 
 const Hapi = require('@hapi/hapi');
 const contractProvider = new ContractProvider();

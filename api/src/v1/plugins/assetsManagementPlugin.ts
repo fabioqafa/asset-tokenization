@@ -13,7 +13,7 @@ const plugin = {
       server.route([
         {
           method: 'GET',
-          path: '/assets/{id}/totalSupply',
+          path: '/v1/assets/{id}/totalSupply',
           options: {
             description: 'Returns the total supply of asset with id {id}',
             notes: 'notes for later',

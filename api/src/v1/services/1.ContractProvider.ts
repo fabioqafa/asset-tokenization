@@ -1,7 +1,7 @@
 import Web3 from "web3";
 import {AbiItem} from "web3-utils";
 import {Contract} from "web3-eth-contract";
-import * as ContractData from "../../../deployment/build/contracts/ERC1155PresetMinterPauserSupply.json";
+import * as ContractData from "../../../../deployment/build/contracts/ERC1155PresetMinterPauserSupply.json";
 
 export let web3 : Web3;
 export let contract : Contract;
