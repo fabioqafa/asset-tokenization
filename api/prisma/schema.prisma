@@ -7,5 +7,73 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgres://postgres:12345678@localhost:5432/asset_tokenization"
 }
+
+model Users {
+  id        String    @id @default(uuid())
+  email     String    @unique
+  username  String    @unique
+  password  String
+  createdAt DateTime  @default(now())
+  tenant    Tenants @relation(fields: [tenantId], references: [id])
+  tenantId  String
+  accountkeys AccountKeys?
+  shareholders Users_Assets[]
+}
+
+model Tenants {
+  id    String @id @default(uuid())
+  name  String @unique
+  users Users[]
+  assets Assets[]
+}
+
+model Assets {
+  id        String @id @default(uuid())
+  address   String
+  flatnr    String
+  floor     Int
+  aptnr     Int
+  tenant    Tenants @relation(fields: [tenantId], references: [id])
+  tenantId  String
+  shareholders Users_Assets[]
+}
+
+model AccountKeys {
+  id String @id @default(uuid())
+  publicKey String
+  privateKey String
+  user Users @relation(fields: [userId], references: [id])
+  userId String @unique
+}
+
+model Users_Assets {
+  asset Assets @relation(fields: [assetId], references: [id])
+  assetId String
+  user Users @relation(fields: [userId], references: [id])
+  userId String
+  purchasedAt DateTime @default(now())
+
+  @@id([assetId, userId])
+}
+
+// model Users {
+//   id String @id @default(uuid())
+//   username String @unique
+//   accounts Accounts
+// }
+
+// model AccountKeys {
+//   id String @id @default(uuid())
+//   publicKey String
+//   privateKey String
+//   accounts Accounts //ask Ardit why 
+// }
+
+// model Accounts {
+//   UserId String @id
+//   AccountKeyId String
+//   user Users @relation(fields: [UserId], references: [id])
+//   accountKey AccountKeys? @relation(fields: [AccountKeyId], references: [id]) //ask Ardit why 
+// }
