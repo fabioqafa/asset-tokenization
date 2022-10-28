@@ -110,7 +110,7 @@ const getTenantsAssets = async(tenantId : string) : Promise<Assets[]> => {
     return assets;
 }
 
-const createAsset = async(address: string, flatnr : string, floor : number, aptnr : number, tenantId : string) : Promise<void> => {
+const createAsset = async(address: string, flatnr : number, floor : number, aptnr : number, tenantId : string) : Promise<void> => {
     await prisma.assets.create({
         data : {
             address,
@@ -120,6 +120,7 @@ const createAsset = async(address: string, flatnr : string, floor : number, aptn
             tenantId
         }
     })
+
 }
 
 //Assets model end
@@ -176,7 +177,7 @@ const getOwnersAsset = async(userId : string) : Promise<any> => {
 //Users_Assets model end
 
 
-(async() => {
-    const result = await getOwnersAsset("f57d2669-2172-4ef9-a8e8-2c06cf7ad4ef");
-    console.log(result)       
-}) ()
+// (async() => {
+//     const result = await getOwnersAsset("f57d2669-2172-4ef9-a8e8-2c06cf7ad4ef");
+//     console.log(result)       
+// }) ()

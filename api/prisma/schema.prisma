@@ -16,43 +16,50 @@ model Users {
   username  String    @unique
   password  String
   createdAt DateTime  @default(now())
-  tenant    Tenants @relation(fields: [tenantId], references: [id])
+  tenant    Tenants   @relation(fields: [tenantId], references: [id])
   tenantId  String
   accountkeys AccountKeys?
   shareholders Users_Assets[]
 }
 
 model Tenants {
-  id    String @id @default(uuid())
-  name  String @unique
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
   users Users[]
   assets Assets[]
 }
 
 model Assets {
-  id        String @id @default(uuid())
-  address   String
-  flatnr    String
-  floor     Int
-  aptnr     Int
-  tenant    Tenants @relation(fields: [tenantId], references: [id])
-  tenantId  String
+  id           String @id @default(uuid())
+  tokenId      Int    @default(autoincrement())
+  tokenSymbol  String @unique
+  address      String
+  flatnr       Int 
+  floor        Int
+  aptnr        Int
+  createdAt    DateTime @default(now())
+  tenant       Tenants @relation(fields: [tenantId], references: [id])
+  tenantId     String
   shareholders Users_Assets[]
+
+  @@unique([address, flatnr, floor, aptnr])
 }
 
 model AccountKeys {
-  id String @id @default(uuid())
-  publicKey String
-  privateKey String
-  user Users @relation(fields: [userId], references: [id])
-  userId String @unique
+  id         String   @id @default(uuid())
+  publicKey  String   @unique
+  privateKey String   @unique
+  createdAt  DateTime @default(now())
+  user       Users    @relation(fields: [userId], references: [id])
+  userId     String   @unique
 }
 
 model Users_Assets {
-  asset Assets @relation(fields: [assetId], references: [id])
-  assetId String
-  user Users @relation(fields: [userId], references: [id])
-  userId String
+  asset       Assets   @relation(fields: [assetId], references: [id])
+  assetId     String
+  user        Users    @relation(fields: [userId], references: [id])
+  userId      String
   purchasedAt DateTime @default(now())
 
   @@id([assetId, userId])

@@ -12,17 +12,6 @@ const options = {
     register: async function (server: Server) {
       server.route([
         {
-          method: 'POST',
-          path: '/v1/accounts/newAccount',
-          options: {
-            description: 'Creates an account for the user',
-            notes: 'Account in blockchain',
-            tags: ['api'],
-            
-            handler: createAccountHandler
-          }
-        },
-        {
           method: 'GET',
           path: '/v1/accounts/{address}/tokens',
           options: {
@@ -82,7 +71,18 @@ const options = {
             },
             handler: isWhitelistedHandler
           }
-        }
+        },
+        {
+          method: 'POST',
+          path: '/v1/accounts/newAccount',
+          options: {
+            description: 'Creates an account for the user',
+            notes: 'Account in blockchain',
+            tags: ['api'],
+            
+            handler: createAccountHandler
+          }
+        },
       ]);
     },
   };
@@ -109,14 +109,14 @@ const options = {
     const {role} = request.query;
     const hasRole = await accountsService.hasRole(role as string, address);
 
-    return h.response({address, role, hasRole});
+    return h.response({address, role, hasRole}).code(200);
   }
 
   const isWhitelistedHandler = async (request: Request, h: ResponseToolkit) => {
     const {address} =  request.params;
     const isWhitelisted = await accountsService.isWhitelisted(address);
 
-    return h.response({address, isWhitelisted});
+    return h.response({address, isWhitelisted}).code(200);
   }
 
 

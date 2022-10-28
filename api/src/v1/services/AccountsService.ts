@@ -1,9 +1,8 @@
 import executeTransaction from "../utils/ExeTrnx";
 import { web3, contract, networkId } from "./1.ContractProvider";
-import {Account} from 'web3-core';
-
+import { Account } from "web3-core";
 class AccountsService {
-    
+
     createAccount = async() : Promise<Account> => {
         const accountData = web3.eth.accounts.create();   
             

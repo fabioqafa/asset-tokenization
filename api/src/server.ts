@@ -3,8 +3,9 @@ import ContractProvider from "./v1/services/1.ContractProvider";
 import { Server, Request, ResponseToolkit } from '@hapi/hapi';
 import { compose, Manifest } from '@hapi/glue';
 import plugins from "./v1/plugins";
+import { PrismaClient } from "@prisma/client";
 
-const Hapi = require('@hapi/hapi');
+export const prisma = new PrismaClient();
 const contractProvider = new ContractProvider();
 
 const manifest: Manifest = {
