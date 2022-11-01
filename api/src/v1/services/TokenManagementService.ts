@@ -5,10 +5,16 @@ import {TransactionReceipt} from "web3-core";
 class TokenManagementService {
 
     issueTokens = async(id: number, amount: number, signerAddress : string, signerPrivateKey : string) : Promise<TransactionReceipt> => {
-        const tx = await contract.methods.mint(id, amount, "0x00");
-        const transactionReceipt = await executeTransaction(tx, web3, contract, networkId, signerAddress, signerPrivateKey);
+        try {
+            const tx = await contract.methods.mint(id, amount, "0x00");
+            const transactionReceipt = await executeTransaction(tx, web3, contract, networkId, signerAddress, signerPrivateKey);
+    
+            return transactionReceipt;
 
-        return transactionReceipt;
+        } catch (error) {
+            console.error(error); throw error;
+        }
+        
     }
 
     transferTokens = async(from : string, to : string, id: number, amount: number, signerAddress : string, signerPrivateKey : string) : Promise<TransactionReceipt> => {
@@ -17,7 +23,10 @@ class TokenManagementService {
             const transactionReceipt = await executeTransaction(tx, web3, contract, networkId, signerAddress, signerPrivateKey);
 
             return transactionReceipt;
-        } catch(err) {return err;}
+
+        } catch(error) {
+            console.error(error); throw error;
+        }
     }
 }
 

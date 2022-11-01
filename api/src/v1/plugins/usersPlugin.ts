@@ -118,32 +118,32 @@ const options = {
     },
   };
 
-  const userService = new UsersService();
+  const usersService = new UsersService();
   const users_assets_service = new Users_Assets();
 
   const getAllUsersHandler = async (request : Request, h : ResponseToolkit) => {
-    const users = await userService.getAllUsers();
+    const users = await usersService.getAllUsers();
 
     return h.response({users}).code(200);
   }
 
   const getUsersByTenantIdHandler = async (request : Request, h : ResponseToolkit) => {
     const { tenantId } = request.query as any;
-    const users = await userService.getUsersByTenantId(tenantId as string);
+    const users = await usersService.getUsersByTenantId(tenantId as string);
 
     return h.response({users}).code(200);
   }
 
   const getUserHandler = async (request : Request, h : ResponseToolkit) => {
     const { username } = request.query;
-    const user = await userService.getUser(username as string);
+    const user = await usersService.getUser(username as string);
 
     return h.response({user}).code(200);
   }
 
   const signUpHandler = async (request: Request, h: ResponseToolkit) => {
     const {email, username, password, tenantId} = request.payload as any;
-    const user = await userService.signUp(email as string, username as string, password as string, tenantId as string);
+    const user = await usersService.signUp(email as string, username as string, password as string, tenantId as string);
 
     return h.response("OK").code(201);
   }
@@ -156,10 +156,20 @@ const options = {
   }
 
   const logInHandler = async (request : Request, h : ResponseToolkit) => {
-    const { username, password } = request.payload as any;
-    const token = jwt.sign({username, password, scope : "admin"}, "1234", {expiresIn : "1h"})
+    if (request.pre.apiVersion == 1) {
+      const { username, password } = request.payload as any;
+      const token = await usersService.logIn(username, password)
+      return h.response(token).code(200);
+    }
+
+    else if (request.pre.apiVersion == 2) {
+      return "Ok";
+    }
+
+    else {
+      throw console.error("Bad version");
+    }
     
-    return token;
   }
 
 

@@ -70,10 +70,10 @@ const options = {
 const tokenManagementService = new TokenManagementService();
 
 const issueTokensHandler = async (request : Request, h : ResponseToolkit) => {
-    const {id, amount, issuerAddress, issuerPrivateKey} = request.payload as any;
-    const transactionReceipt = await tokenManagementService.issueTokens(id as number, amount as number, issuerAddress as string, issuerPrivateKey as string);
-
-    return h.response({transactionReceipt}).code(200);
+        const {id, amount, issuerAddress, issuerPrivateKey} = request.payload as any;
+        const transactionReceipt = await tokenManagementService.issueTokens(id as number, amount as number, issuerAddress as string, issuerPrivateKey as string);
+    
+        return h.response({transactionReceipt}).code(200);
 }
 
 const transferTokensHandler = async (request : Request, h : ResponseToolkit) => {

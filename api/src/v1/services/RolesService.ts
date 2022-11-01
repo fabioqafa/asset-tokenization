@@ -3,21 +3,36 @@ import {Account} from 'web3-core';
 
 class RolesService {
     getMinterRole = async() : Promise<string> => {
-        const minterRole = await contract.methods.MINTER_ROLE().call();
-
-        return minterRole;
+        try {
+            const minterRole = await contract.methods.MINTER_ROLE().call();
+    
+            return minterRole;
+            
+        } catch (error) {
+            console.error(error); throw error;
+        }
     }
 
     getPauserRole = async() : Promise<string> => {
-        const pauserRole = await contract.methods.PAUSER_ROLE().call();
-
-        return pauserRole;
+        try {
+            const pauserRole = await contract.methods.PAUSER_ROLE().call();
+    
+            return pauserRole;
+            
+        } catch (error) {
+            console.error(error); throw error;
+        }
     }
 
     getAdminRole = async() : Promise<string> => {
-        const defaultAdminRole = await contract.methods.DEFAULT_ADMIN_ROLE().call();
-
-        return defaultAdminRole;
+        try {
+            const defaultAdminRole = await contract.methods.DEFAULT_ADMIN_ROLE().call();
+    
+            return defaultAdminRole;
+            
+        } catch (error) {
+            console.error(error); throw error;
+        }
     }
 }
 

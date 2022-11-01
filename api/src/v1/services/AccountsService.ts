@@ -4,27 +4,48 @@ import { Account } from "web3-core";
 class AccountsService {
 
     createAccount = async() : Promise<Account> => {
-        const accountData = web3.eth.accounts.create();   
+        try {
+            const accountData = web3.eth.accounts.create();   
             
-        return accountData;
+            return accountData;
+
+        } catch (error) {
+            console.error(error); throw error;
+        }
+        
     }
 
     getBalance = async(id : number, address: string) : Promise<number> => {
-        const balance : number = await contract.methods.balanceOf(address, id).call();
-        
-        return balance;
+        try {
+            const balance : number = await contract.methods.balanceOf(address, id).call();
+            
+            return balance;
+            
+        } catch (error) {
+            console.error(error); throw error;
+        }
     }
 
     hasRole = async(role: string, address: string) : Promise<boolean> => {
-        const result = await contract.methods.hasRole(role, address).call();
-
-        return result;
+        try {
+            const result = await contract.methods.hasRole(role, address).call();
+    
+            return result;
+            
+        } catch (error) {
+            console.error(error); throw error;
+        }
     }
     
     isWhitelisted = async(address : string) : Promise<boolean> => {
-        const result = await contract.methods.isWhitelisted(address).call();
-
-        return result;
+        try {
+            const result = await contract.methods.isWhitelisted(address).call();
+    
+            return result;
+            
+        } catch (error) {
+            console.error(error); throw error;
+        }
     }   
 
 }

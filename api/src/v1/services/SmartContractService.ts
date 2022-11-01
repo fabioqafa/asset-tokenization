@@ -6,29 +6,49 @@ import {TransactionReceipt} from "web3-core";
 class SmartContractData {
 
     getDecimals = async() : Promise<number> => {
-        const decimals = await contract.methods.getDecimals().call();
-
-        return decimals;
+        try {
+            const decimals = await contract.methods.getDecimals().call();
+    
+            return decimals;
+            
+        } catch (error) {
+            console.error(error); throw error;
+        }
     }
 
     pause = async(signerAddress : string, signerPrivateKey : string) : Promise<TransactionReceipt> => {
-        const tx = await contract.methods.pause();
-        const transactionReceipt = await executeTransaction(tx, web3, contract, networkId, signerAddress, signerPrivateKey);
-
-        return transactionReceipt;
+        try {
+            const tx = await contract.methods.pause();
+            const transactionReceipt = await executeTransaction(tx, web3, contract, networkId, signerAddress, signerPrivateKey);
+    
+            return transactionReceipt;
+            
+        } catch (error) {
+            console.error(error); throw error;
+        }
     }
 
     unpause = async(signerAddress : string, signerPrivateKey : string) : Promise<TransactionReceipt> => {
-        const tx = await contract.methods.unpause();
-        const transactionReceipt = await executeTransaction(tx, web3, contract, networkId, signerAddress, signerPrivateKey);
-
-        return transactionReceipt;
+        try {
+            const tx = await contract.methods.unpause();
+            const transactionReceipt = await executeTransaction(tx, web3, contract, networkId, signerAddress, signerPrivateKey);
+    
+            return transactionReceipt;
+            
+        } catch (error) {
+            console.error(error); throw error;    
+        }
     }
 
     isPaused = async() : Promise<boolean> => {
-        const result = await contract.methods.paused().call();
-
-        return result;
+        try {
+            const result = await contract.methods.paused().call();
+    
+            return result;
+            
+        } catch (error) {
+            console.error(error); throw error;
+        }
     }
 
 }

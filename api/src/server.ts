@@ -35,16 +35,29 @@ const manifest: Manifest = {
 const init = async () => {
 
     const server : Server = await compose(manifest, options);
+    await server.register({
+      plugin : require("hapi-api-version"),
+      options : {
+        validVersions: [1,2],
+        defaultVersion: 1,
+        vendorName: 'assetapi'
+      }
+    })
+
     await server.start();
   
     console.log('Server running on %s', server.info.uri);
-
+    
     server.route({
-        method: 'GET',
-        path: '/v1',
-        handler: (request, h) => {
-
-            return 'Hello World!';
+      method: 'GET',
+      path: '/',
+      options : {
+        auth : false
+      },
+      handler: (request : Request, h : ResponseToolkit) => {
+        return {
+          version: request.pre.apiVersion
+          }
         }
     });
 

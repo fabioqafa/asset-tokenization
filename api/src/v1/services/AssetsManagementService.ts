@@ -5,65 +5,90 @@ import { Assets } from "@prisma/client";
 class AssetsManagementService {
 
     getAllAssets = async() : Promise<any[]> => {
-        const assets = await prisma.assets.findMany({
-            select : {
-                id : true,
-                tokenId : true,
-                tokenSymbol : true,
-                address : true,
-                flatnr : true,
-                floor : true,
-                aptnr : true,
-                createdAt : true,
-                tenantId : true,
-                tenant : {
-                    select : {
-                        name : true
+        try {
+            const assets = await prisma.assets.findMany({
+                select : {
+                    id : true,
+                    tokenId : true,
+                    tokenSymbol : true,
+                    address : true,
+                    flatnr : true,
+                    floor : true,
+                    aptnr : true,
+                    createdAt : true,
+                    tenantId : true,
+                    tenant : {
+                        select : {
+                            name : true
+                        }
                     }
                 }
-            }
-        });
-    
-        return assets;
+            });
+        
+            return assets;
+            
+        } catch (error) {
+            console.error(error); throw error;
+        }
     }
     
     getTenantsAssets = async(tenantId : string) : Promise<Assets[]> => {
-        const assets = await prisma.assets.findMany({
-            where : {
-                tenantId
-            }
-        });
-    
-        return assets;
+        try {
+            const assets = await prisma.assets.findMany({
+                where : {
+                    tenantId
+                }
+            });
+        
+            return assets;
+            
+        } catch (error) {
+            console.error(error); throw error;
+        }
     }
     
     totalSupply = async (id: number) : Promise<number> => {
-        const totalSupply = await contract.methods.totalSupply(id).call();
-
-        return totalSupply;
+        try {
+            const totalSupply = await contract.methods.totalSupply(id).call();
+    
+            return totalSupply;
+            
+        } catch (error) {
+            console.error(error); throw error;
+        }
     }
 
     exists = async (id: number) : Promise<boolean> => {
-        const result = await contract.methods.exists(id).call();
-
-        return result;
+        try {
+            const result = await contract.methods.exists(id).call();
+    
+            return result;
+            
+        } catch (error) {
+            console.error(error); throw error;
+        }
     }
 
 
     createAsset = async(tokenSymbol : string, address: string, flatnr : number, floor : number, aptnr : number, tenantId : string) : Promise<Assets> => {
         
-        const newAsset = await prisma.assets.create({
-            data : {
-                tokenSymbol,
-                address,
-                flatnr,
-                floor,
-                aptnr,
-                tenantId
-            }
-        });
-
-        return newAsset;
+        try {
+            const newAsset = await prisma.assets.create({
+                data : {
+                    tokenSymbol,
+                    address,
+                    flatnr,
+                    floor,
+                    aptnr,
+                    tenantId
+                }
+            });
+    
+            return newAsset;
+            
+        } catch (error) {
+            console.error(error); throw error;
+        }
     }
 }
 

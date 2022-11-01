@@ -16,8 +16,8 @@ model Users {
   username  String    @unique
   password  String
   createdAt DateTime  @default(now())
-  role Roles @relation(fields: [roleId], references: [id])
-  roleId Int
+  // role Roles @relation(fields: [roleId], references: [id])
+  // roleId Int
   tenant    Tenants   @relation(fields: [tenantId], references: [id])
   tenantId  String
   accountkeys AccountKeys?
@@ -68,11 +68,11 @@ model Users_Assets {
   @@id([assetId, userId])
 }
 
-model Roles {
-  id    Int @id @default(autoincrement())
-  role  String @unique
-  user Users[]
-}
+// model Roles {
+//   id    Int @id @default(autoincrement())
+//   role  String @unique
+//   user Users[]
+// }
 
 // model Users {
 //   id String @id @default(uuid())
