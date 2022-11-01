@@ -16,6 +16,7 @@ class Users_Assets {
                 asset : true,
                 user : {
                     select : {
+                        id : true,
                         username: true,
                         email : true,
                         tenantId : true,

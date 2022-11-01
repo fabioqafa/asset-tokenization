@@ -3,15 +3,17 @@ import ContractProvider from "./v1/services/1.ContractProvider";
 import { Server, Request, ResponseToolkit } from '@hapi/hapi';
 import { compose, Manifest } from '@hapi/glue';
 import plugins from "./v1/plugins";
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
+import * as jwt from "jsonwebtoken";
+import Bcrypt from "bcrypt";
 
-export const prisma = new PrismaClient();
+export let prisma;
 const contractProvider = new ContractProvider();
 
 const manifest: Manifest = {
     server: {
       port: 3000,
-      host: 'localhost',
+      host: '0.0.0.0',
       router: {
         stripTrailingSlash: true,
       },
@@ -32,13 +34,14 @@ const manifest: Manifest = {
 
 const init = async () => {
 
-    const server : Server = await compose(manifest, options)
+    const server : Server = await compose(manifest, options);
     await server.start();
+  
     console.log('Server running on %s', server.info.uri);
 
     server.route({
         method: 'GET',
-        path: '/',
+        path: '/v1',
         handler: (request, h) => {
 
             return 'Hello World!';
@@ -46,6 +49,7 @@ const init = async () => {
     });
 
     await contractProvider.setContractData();
+    prisma = new PrismaClient();
 };
 
 process.on('unhandledRejection', (err) => {

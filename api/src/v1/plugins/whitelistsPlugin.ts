@@ -13,7 +13,7 @@ const options = {
       server.route([
         {
           method: 'POST',
-          path: '/v1/whitelist/{address}/addToWhitelist',
+          path: '/whitelist/{address}/addToWhitelist',
           options: {
             description: 'Add an account to whitelist',
             notes: 'Returns a transaction hash',
@@ -38,7 +38,7 @@ const options = {
         },
         {
             method: 'POST',
-            path: '/v1/whitelist/{address}/removeFromWhitelist',
+            path: '/whitelist/{address}/removeFromWhitelist',
             options: {
               description: 'Remove an account to whitelist',
               notes: 'Returns a transaction hash',

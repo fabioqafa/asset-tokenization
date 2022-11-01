@@ -12,10 +12,12 @@ class TokenManagementService {
     }
 
     transferTokens = async(from : string, to : string, id: number, amount: number, signerAddress : string, signerPrivateKey : string) : Promise<TransactionReceipt> => {
-        const tx = await contract.methods.safeTransferFrom(from, to, id, amount, "0x00");
-        const transactionReceipt = await executeTransaction(tx, web3, contract, networkId, signerAddress, signerPrivateKey);
+        try {
+            const tx = await contract.methods.safeTransferFrom(from, to, id, amount, "0x00");
+            const transactionReceipt = await executeTransaction(tx, web3, contract, networkId, signerAddress, signerPrivateKey);
 
-        return transactionReceipt;
+            return transactionReceipt;
+        } catch(err) {return err;}
     }
 }
 

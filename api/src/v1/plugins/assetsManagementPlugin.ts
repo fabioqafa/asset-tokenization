@@ -14,7 +14,7 @@ const plugin = {
       server.route([
         {
           method: 'GET',
-          path: '/v1/assets/allAssets',
+          path: '/assets/allAssets',
           options: {
             description: 'Returns all assets',
             notes: 'notes for later',
@@ -25,7 +25,7 @@ const plugin = {
         },
         {
           method: 'GET',
-          path: '/v1/assets/tenantsAssets', //?tenantId = {tenantId}
+          path: '/assets/tenantsAssets', //?tenantId = {tenantId}
           options: {
             description: 'Returns all assets of a tenant',
             notes: 'notes for later',
@@ -42,7 +42,7 @@ const plugin = {
         },
         {
           method: 'GET',
-          path: '/v1/assets/{id}/totalSupply',
+          path: '/assets/{id}/totalSupply',
           options: {
             description: 'Returns the total supply of asset with id {id}',
             notes: 'notes for later',
@@ -58,7 +58,7 @@ const plugin = {
         },
         {
           method: 'POST',
-          path: '/v1/assets/newAsset',
+          path: '/assets/newAsset',
           options: {
             description: 'Returns the total supply of asset with id {id}',
             notes: 'notes for later',
@@ -84,7 +84,7 @@ const plugin = {
         },
         {
           method: 'POST',
-          path: '/v1/assets/addShareholders',
+          path: '/assets/addShareholders',
           options: {
             description: 'Returns the total supply of asset with id {id}',
             notes: 'notes for later',
@@ -102,7 +102,7 @@ const plugin = {
         },
         {
           method: 'GET',
-          path: '/v1/assets/owners', //?tokenId = {tokenId}
+          path: '/assets/owners', //?tokenId = {tokenId}
           options: {
             description: 'Returns the total supply of asset with id {id}',
             notes: 'notes for later',

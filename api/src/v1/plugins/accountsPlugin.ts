@@ -13,7 +13,7 @@ const options = {
       server.route([
         {
           method: 'GET',
-          path: '/v1/accounts/{address}/tokens',
+          path: '/accounts/{address}/tokens',
           options: {
             description: 'Account Balance',
             notes: 'Shows the balance of the account',
@@ -35,7 +35,7 @@ const options = {
         },
         {
           method: 'GET',
-          path: '/v1/accounts/{address}/checkRole',
+          path: '/accounts/{address}/checkRole',
           options: {
             description: 'Checks address role',
             notes: 'Address and role should be of string type',
@@ -57,7 +57,7 @@ const options = {
         },
         {
           method: 'GET',
-          path: '/v1/accounts/{address}/checkWhitelist',
+          path: '/accounts/{address}/checkWhitelist',
           options: {
             description: 'Checks address whitelist status',
             notes: 'Address should be of string type',
@@ -74,7 +74,7 @@ const options = {
         },
         {
           method: 'POST',
-          path: '/v1/accounts/newAccount',
+          path: '/accounts/newAccount',
           options: {
             description: 'Creates an account for the user',
             notes: 'Account in blockchain',

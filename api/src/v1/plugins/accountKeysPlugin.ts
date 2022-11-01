@@ -13,7 +13,7 @@ const options = {
       server.route([
         {
             method: 'GET',
-            path: '/v1/accountKeys/allKeys',
+            path: '/accountKeys/allKeys',
             options: {
               description: 'Returns all the keys',
               notes: 'notes for later',
@@ -24,7 +24,7 @@ const options = {
           },
           {
             method: 'GET',
-            path: '/v1/accountKeys/userKeys', //?username = {username}
+            path: '/accountKeys/userKeys', //?username = {username}
             options: {
               description: 'Returns user keys',
               notes: 'notes for later',
@@ -41,7 +41,7 @@ const options = {
           },
           {
             method: 'POST',
-            path: '/v1/accountKeys/newKeys',
+            path: '/accountKeys/newKeys',
             options: {
               description: 'Creates new keys',
               notes: 'notes for later',

@@ -13,7 +13,7 @@ const options = {
       server.route([
         {
           method: 'GET',
-          path: '/v1/smartcontractdata/decimals',
+          path: '/smartcontractdata/decimals',
           options: {
             description: 'Returns the number of decimals in the smart contract',
             notes: 'notes',
@@ -24,7 +24,7 @@ const options = {
         },
         {
           method: 'POST',
-          path: '/v1/smartcontractdata/pause',
+          path: '/smartcontractdata/pause',
           options: {
             description: 'Pauses smart contract',
             notes: 'notes',
@@ -44,7 +44,7 @@ const options = {
         },
         {
             method: 'POST',
-            path: '/v1/smartcontractdata/unpause',
+            path: '/smartcontractdata/unpause',
             options: {
               description: 'Unpauses smart contract',
               notes: 'notes',
@@ -64,7 +64,7 @@ const options = {
           },
           {
             method: 'GET',
-            path: '/v1/smartcontractdata/status',
+            path: '/smartcontractdata/status',
             options: {
               description: 'Returns smart contract pause state',
               notes: 'notes',

@@ -1,20 +1,21 @@
 import { Server, Request, ResponseToolkit } from '@hapi/hapi';
 import { PluginObject } from '@hapi/glue';
 import Joi from 'joi';
+import * as jwt from "jsonwebtoken";
 import UsersService from '../services/UsersService';
 import Users_Assets from '../services/Users_AssetsService';
+import hapiAuthJwt2 from 'hapi-auth-jwt2';
 
 const options = {
     route: true
   };
-
   const plugin = {
     name: 'app/users',
     register: async function (server: Server) {
       server.route([
         {
           method: 'GET',
-          path: '/v1/users/allUsers',
+          path: '/users/allUsers',
           options: {
             description: 'Returns all users of the platform',
             notes: 'notes for later',
@@ -25,9 +26,9 @@ const options = {
         },
         {
           method: 'GET',
-          path: '/v1/users/allUsersTenant', //?tenantId = {tenantId}
+          path: '/users/allUsersTenant', //?tenantId = {tenantId}
           options: {
-            description: 'Returns all users of the platform',
+            description: 'Returns all users of a tenant',
             notes: 'notes for later',
             tags: ['api'],
             validate : {
@@ -41,14 +42,14 @@ const options = {
         },
         {
           method: 'GET',
-          path: '/v1/users/user', //?email = {email}
+          path: '/users/user', //?email = {email}
           options: {
-            description: 'Returns all users of the platform',
+            description: 'Returns user',
             notes: 'notes for later',
             tags: ['api'],
             validate : {
               query : Joi.object({
-                email : Joi.string()
+                username : Joi.string()
                     .required()
               })
             },
@@ -57,7 +58,7 @@ const options = {
         },
         {
           method: 'GET',
-          path: '/v1/users/assets', //?username = {username}
+          path: '/users/assets', //?username = {username}
           options: {
             description: 'Returns all assets where user is shareholder',
             notes: 'notes for later',
@@ -73,7 +74,7 @@ const options = {
         },
         {
           method: 'POST',
-          path: '/v1/users/signUp',
+          path: '/users/signup',
           options: {
             description: 'Registers an user for the first time',
             notes: 'notes for later',
@@ -92,6 +93,25 @@ const options = {
               })
             },
             handler: signUpHandler
+          }
+        },
+        {
+          method: 'POST',
+          path: '/users/login',
+          options: {
+            auth : false,
+            description: 'User authentication',
+            notes: 'notes for later',
+            tags: ['api'],
+            validate: {
+              payload: Joi.object({
+                username : Joi.string()
+                    .required(),
+                password: Joi.string()
+                    .required()
+              })
+            },
+            handler: logInHandler
           }
         },
       ]);
@@ -115,8 +135,8 @@ const options = {
   }
 
   const getUserHandler = async (request : Request, h : ResponseToolkit) => {
-    const { email } = request.query;
-    const user = await userService.getUser(email as string);
+    const { username } = request.query;
+    const user = await userService.getUser(username as string);
 
     return h.response({user}).code(200);
   }
@@ -125,7 +145,7 @@ const options = {
     const {email, username, password, tenantId} = request.payload as any;
     const user = await userService.signUp(email as string, username as string, password as string, tenantId as string);
 
-    return h.response({user}).code(201);
+    return h.response("OK").code(201);
   }
 
   const getOwnersAssetHandler = async (request: Request, h: ResponseToolkit) => {
@@ -133,6 +153,13 @@ const options = {
     const assets = await users_assets_service.getOwnersAsset(username);
 
     return h.response({assets}).code(200);
+  }
+
+  const logInHandler = async (request : Request, h : ResponseToolkit) => {
+    const { username, password } = request.payload as any;
+    const token = jwt.sign({username, password, scope : "admin"}, "1234", {expiresIn : "1h"})
+    
+    return token;
   }
 
 

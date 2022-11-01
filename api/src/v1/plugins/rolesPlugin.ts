@@ -12,7 +12,7 @@ const plugin = {
       server.route([
         {
           method: 'GET',
-          path: '/v1/roles/minterRole',
+          path: '/roles/minterRole',
           options: {
             description: 'Returns the role of the minter',
             notes: 'Role is in bytes64 format',
@@ -23,7 +23,7 @@ const plugin = {
         },
         {
           method: 'GET',
-          path: '/v1/roles/pauserRole',
+          path: '/roles/pauserRole',
           options: {
             description: 'Returns the role of the pauser',
             notes: 'Role is in bytes64 format',
@@ -34,7 +34,7 @@ const plugin = {
         },
         {
           method: 'GET',
-          path: '/v1/roles/adminRole',
+          path: '/roles/adminRole',
           options: {
             description: 'Returns the role of the admin of the smart contract',
             notes: 'Role is in bytes64 format',

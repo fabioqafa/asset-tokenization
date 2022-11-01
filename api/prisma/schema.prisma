@@ -16,10 +16,13 @@ model Users {
   username  String    @unique
   password  String
   createdAt DateTime  @default(now())
+  role Roles @relation(fields: [roleId], references: [id])
+  roleId Int
   tenant    Tenants   @relation(fields: [tenantId], references: [id])
   tenantId  String
   accountkeys AccountKeys?
   shareholders Users_Assets[]
+
 }
 
 model Tenants {
@@ -63,6 +66,12 @@ model Users_Assets {
   purchasedAt DateTime @default(now())
 
   @@id([assetId, userId])
+}
+
+model Roles {
+  id    Int @id @default(autoincrement())
+  role  String @unique
+  user Users[]
 }
 
 // model Users {

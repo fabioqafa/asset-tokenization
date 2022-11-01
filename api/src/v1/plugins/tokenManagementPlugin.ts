@@ -13,7 +13,7 @@ const options = {
       server.route([
         {
           method: 'POST',
-          path: '/v1/tokenmanagement/issueTokens',
+          path: '/tokenmanagement/issueTokens',
           options: {
             description: 'Issue tokens',
             notes: 'notes',
@@ -37,7 +37,7 @@ const options = {
         },
         {
             method: 'POST',
-            path: '/v1/tokenmanagement/transferTokens',
+            path: '/tokenmanagement/transferTokens',
             options: {
               description: 'Transfer tokens',
               notes: 'notes',

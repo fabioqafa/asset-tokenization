@@ -21,10 +21,10 @@ class UsersService {
         return users;
     }
     
-    getUser = async(email : string) : Promise<Users | null> => {
+    getUser = async(username : string) : Promise<Users | null> => {
         const user = await prisma.users.findUnique({
             where : {
-                email
+                username
             }
         })
     
@@ -40,7 +40,8 @@ class UsersService {
                 email,
                 username,
                 password: hashedPassword,
-                tenantId
+                tenantId,
+                roleId : 2 //by default user
             }
         })
 

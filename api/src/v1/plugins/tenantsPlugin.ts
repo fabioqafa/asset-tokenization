@@ -13,7 +13,7 @@ const plugin = {
       server.route([
         {
           method: 'GET',
-          path: '/v1/tenants/allTenants',
+          path: '/tenants/allTenants',
           options: {
             description: 'Returns all tenants',
             notes: 'notes for later',
@@ -24,7 +24,7 @@ const plugin = {
         },
         {
           method: 'GET',
-          path: '/v1/tenants/tenant', //?name = {name}
+          path: '/tenants/tenant', //?name = {name}
           options: {
             description: 'Returns one tenant by its name',
             notes: 'notes for later',
@@ -41,7 +41,7 @@ const plugin = {
         },
         {
           method: 'POST',
-          path: '/v1/tenants/newTenant',
+          path: '/tenants/newTenant',
           options: {
             description: 'Creates a new tenant',
             notes: 'notes for later',
