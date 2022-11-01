@@ -227,7 +227,7 @@ contract ERC1155PresetMinterPauserSupply is IERC1155PresetMinterPauserSupply ,Co
      *
      * May emit a {RoleGranted} event.
      */
-    function grantRole(bytes32 role, address account) public virtual override(IAccessControl, IERC1155PresetMinterPauserSupply) checkWhitelist(account) {
+    function grantRole(bytes32 role, address account) public virtual override(IAccessControl, AccessControl, IERC1155PresetMinterPauserSupply) checkWhitelist(account) {
         super.grantRole(role, account);
     }
 
@@ -242,7 +242,7 @@ contract ERC1155PresetMinterPauserSupply is IERC1155PresetMinterPauserSupply ,Co
      *
      * May emit a {RoleRevoked} event.
      */
-    function revokeRole(bytes32 role, address account) public virtual override(IAccessControl, IERC1155PresetMinterPauserSupply) {
+    function revokeRole(bytes32 role, address account) public virtual override(IAccessControl, AccessControl, IERC1155PresetMinterPauserSupply) {
         super.revokeRole(role, account);
     }
 
@@ -262,7 +262,7 @@ contract ERC1155PresetMinterPauserSupply is IERC1155PresetMinterPauserSupply ,Co
      *
      * May emit a {RoleRevoked} event.
      */
-    function renounceRole(bytes32 role, address account) public virtual override(IAccessControl, IERC1155PresetMinterPauserSupply) {
+    function renounceRole(bytes32 role, address account) public virtual override(IAccessControl, AccessControl, IERC1155PresetMinterPauserSupply) {
         super.renounceRole(role, account);
     }
 
