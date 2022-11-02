@@ -35,14 +35,14 @@ const manifest: Manifest = {
 const init = async () => {
 
     const server : Server = await compose(manifest, options);
-    await server.register({
-      plugin : require("hapi-api-version"),
-      options : {
-        validVersions: [1,2],
-        defaultVersion: 1,
-        vendorName: 'assetapi'
-      }
-    })
+    // await server.register({
+    //   plugin : require("hapi-api-version"),
+    //   options : {
+    //     validVersions: [1,2],
+    //     defaultVersion: 1,
+    //     vendorName: 'assetapi'
+    //   }
+    // })
 
     await server.start();
   
@@ -55,9 +55,8 @@ const init = async () => {
         auth : false
       },
       handler: (request : Request, h : ResponseToolkit) => {
-        return {
-          version: request.pre.apiVersion
-          }
+        return "Hello!";
+          //version: request.pre.apiVersion
         }
     });
 

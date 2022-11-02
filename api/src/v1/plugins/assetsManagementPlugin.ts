@@ -60,7 +60,7 @@ const plugin = {
           method: 'POST',
           path: '/assets/newAsset',
           options: {
-            description: 'Returns the total supply of asset with id {id}',
+            description: 'Creates a new asset',
             notes: 'notes for later',
             tags: ['api'],
             validate : {
@@ -86,7 +86,7 @@ const plugin = {
           method: 'POST',
           path: '/assets/addShareholders',
           options: {
-            description: 'Returns the total supply of asset with id {id}',
+            description: 'Adds shareholder to an asset',
             notes: 'notes for later',
             tags: ['api'],
             validate : {
@@ -104,7 +104,7 @@ const plugin = {
           method: 'GET',
           path: '/assets/owners', //?tokenId = {tokenId}
           options: {
-            description: 'Returns the total supply of asset with id {id}',
+            description: 'Returns the owners of the asset',
             notes: 'notes for later',
             tags: ['api'],
             validate : {

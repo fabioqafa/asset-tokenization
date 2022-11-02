@@ -23,7 +23,7 @@ const executeTransaction = async(tx: any, web3: Web3, contract: Contract, networ
         const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction as string);
 
         return receipt;
-    } catch (error) {console.error(error); throw error;}
+    } catch (error) {console.error(error); throw {error :"Smart contract error"};}
 }
 
 export default executeTransaction;

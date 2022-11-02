@@ -81,8 +81,10 @@ const smartContractData = new SmartContractData();
 
 const getDecimalsHandler = async (request : Request, h : ResponseToolkit) => {
     const decimals = await smartContractData.getDecimals();
+    //console.log(request.auth.credentials)
+    //console.log(request.auth)
 
-    return h.response({"Smart contract decimals" : decimals}).code(200);
+    return h.response({decimals}).code(200);
 }
 
 const pauseHandler = async (request : Request, h : ResponseToolkit) => {

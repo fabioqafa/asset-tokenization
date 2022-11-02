@@ -12,7 +12,7 @@ class SmartContractData {
             return decimals;
             
         } catch (error) {
-            console.error(error); throw error;
+            console.error(error); throw {error :"Smart contract error"};
         }
     }
 
@@ -24,7 +24,7 @@ class SmartContractData {
             return transactionReceipt;
             
         } catch (error) {
-            console.error(error); throw error;
+            console.error(error); throw {error :"Smart contract error"};
         }
     }
 
@@ -36,7 +36,7 @@ class SmartContractData {
             return transactionReceipt;
             
         } catch (error) {
-            console.error(error); throw error;    
+            console.error(error); throw {error :"Smart contract error"};    
         }
     }
 
@@ -47,7 +47,7 @@ class SmartContractData {
             return result;
             
         } catch (error) {
-            console.error(error); throw error;
+            console.error(error); throw {error :"Smart contract error"};
         }
     }
 

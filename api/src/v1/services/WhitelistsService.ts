@@ -12,7 +12,7 @@ class Whitelist {
             return transactionReceipt;
             
         } catch (error) {
-            console.error(error); throw error;
+            console.error(error); throw {error :"Smart contract error"};
         }
     }
 
@@ -24,7 +24,7 @@ class Whitelist {
             return transactionReceipt;
             
         } catch (error) {
-            console.error(error); throw error;
+            console.error(error); throw {error :"Smart contract error"};
         }
     }
 
