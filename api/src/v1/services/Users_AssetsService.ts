@@ -61,7 +61,7 @@ class Users_Assets {
         }
     }
 
-    addShareholders = async(userId : string, assetId : string) : Promise<any> => {
+    addShareholder = async(userId : string, assetId : string) : Promise<any> => {
         try {
             const result = await prisma.users_Assets.create({
                 data: {
@@ -72,6 +72,24 @@ class Users_Assets {
     
             return result;
             
+        } catch (error) {
+            console.error(error); throw error;
+        }
+    }
+
+    removeShareholder = async(userId : string, assetId : string) : Promise<any> => {
+        try {
+            const result = await prisma.users_Assets.delete({
+                where : {
+                    assetId_userId : {
+                        assetId,
+                        userId
+                    }
+                }
+            });
+
+            return result;
+
         } catch (error) {
             console.error(error); throw error;
         }

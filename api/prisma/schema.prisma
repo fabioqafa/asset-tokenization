@@ -35,7 +35,7 @@ model Tenants {
 
 model Assets {
   id           String @id @default(uuid())
-  tokenId      Int    @default(autoincrement())
+  tokenId      Int    @unique @default(autoincrement())
   tokenSymbol  String @unique
   address      String
   flatnr       Int 

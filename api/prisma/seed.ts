@@ -182,16 +182,15 @@ const prisma = new PrismaClient()
 // //     console.log(result)       
 // // }) ()
 
-const seed = async() => {
-    await prisma.users.create({
-        data : {
-            email : "admin@remax.com",
-            username : "adminremax",
-            password : "$2a$10$gmW1CGYuJen4F9RoC7lMpugVMx0DcsN5N8X/yg.dyDQE/itZvKcka",
-            roleId : 1,
-            tenantId : "775b9238-31b8-4fb9-8b24-366720a1954c"
-        }
-    })
+const seed = async() : Promise<AccountKeys | null> => {
+    // await prisma.users_Assets.create({
+    //     data : {
+    //             assetId : "1ae4d8e3-d787-40c6-b409-3e3413bd85cc",
+    //             userId : "0d1e24c5-09c1-4554-a321-5d7a41f24d73"
+            
+    //     }
+    // })
+
 }
 
 seed()

@@ -3,6 +3,9 @@ import { Server, Request, ResponseToolkit } from '@hapi/hapi';
 import { PluginObject } from '@hapi/glue';
 import Joi from "joi";
 import Users_Assets from "../services/Users_AssetsService";
+import TokenManagementService from "../services/TokenManagementService";
+import AccountKeysService from "../services/AccountKeysService";
+import { prisma } from "@prisma/client";
 
 const options = {
     route: true
@@ -75,31 +78,31 @@ const plugin = {
                         .required(),
                     aptnr : Joi.number()
                         .required(),
-                    tenantId : Joi.string()
-                        .required()
+                    // tenantId : Joi.string()
+                    //     .required()
                 })
             },
             handler: createAssetHandler
           }
         },
-        {
-          method: 'POST',
-          path: '/assets/addShareholders',
-          options: {
-            description: 'Adds shareholder to an asset',
-            notes: 'notes for later',
-            tags: ['api'],
-            validate : {
-                payload : Joi.object({
-                    userId : Joi.string()
-                        .required(),
-                    assetId : Joi.string()
-                        .required()
-                })
-            },
-            handler: addShareholdersHandler
-          }
-        },
+        // {
+        //   method: 'POST',
+        //   path: '/assets/addShareholders',
+        //   options: {
+        //     description: 'Adds shareholder to an asset',
+        //     notes: 'notes for later',
+        //     tags: ['api'],
+        //     validate : {
+        //         payload : Joi.object({
+        //             userId : Joi.string()
+        //                 .required(),
+        //             assetId : Joi.string()
+        //                 .required()
+        //         })
+        //     },
+        //     handler: addShareholdersHandler
+        //   }
+        // },
         {
           method: 'GET',
           path: '/assets/owners', //?tokenId = {tokenId}
@@ -137,7 +140,9 @@ const plugin = {
   };
 
 const assetsManagementService = new AssetsManagementService();
+const tokenManagementService = new TokenManagementService()
 const users_assets_service = new Users_Assets();
+const accountKeysService = new AccountKeysService();
 
 const getAllAssetsHandler = async (request : Request, h : ResponseToolkit) => {
   const assets = await assetsManagementService.getAllAssets();
@@ -163,10 +168,15 @@ const totalSupplyHandler = async (request: Request, h: ResponseToolkit) => {
 }
 
 const createAssetHandler = async (request : Request, h : ResponseToolkit) => {
-  const {tokenSymbol, address, flatnr, floor, aptnr, tenantId} = request.payload as any;
-  const asset = await assetsManagementService.createAsset(tokenSymbol as string, address as string, flatnr as number, floor as number, aptnr as number, tenantId as string);
+  const {tokenSymbol, address, flatnr, floor, aptnr} = request.payload as any;const { username } = request.auth.artifacts.decoded as any;
+  const keys = await accountKeysService.getUserAccountKeys(username as string);
 
-  return h.response({asset}).code(201);
+  const signerAddress = keys.publicKey;
+  const signerPrivateKey = keys.privateKey;
+  const asset = await assetsManagementService.createAsset(tokenSymbol as string, address as string, flatnr as number, floor as number, aptnr as number, "775b9238-31b8-4fb9-8b24-366720a1954c" as string);
+  const transactionReceipt = await tokenManagementService.issueTokens(asset.tokenId as number, 10000, signerAddress, signerPrivateKey)
+
+  return h.response({asset, transactionReceipt}).code(201);
 }
 
 const getAssetOwnersHandler = async (request : Request, h : ResponseToolkit) => {
@@ -178,7 +188,7 @@ const getAssetOwnersHandler = async (request : Request, h : ResponseToolkit) => 
 
 const addShareholdersHandler = async (request : Request, h : ResponseToolkit) => {
   const { userId, assetId } = request.payload as any;
-  const result = await users_assets_service.addShareholders(userId, assetId);
+  const result = await users_assets_service.addShareholder(userId, assetId);
 
   return h.response({result}).code(200);
 }
