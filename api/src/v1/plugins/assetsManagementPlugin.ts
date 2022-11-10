@@ -14,30 +14,13 @@ const plugin = {
       server.route([
         {
           method: 'GET',
-          path: '/assets/allAssets',
+          path: '/assets',
           options: {
             description: 'Returns all assets',
             notes: 'notes for later',
             tags: ['api'],
           
             handler: getAllAssetsHandler
-          }
-        },
-        {
-          method: 'GET',
-          path: '/assets/tenantsAssets', //?tenantId = {tenantId}
-          options: {
-            description: 'Returns all assets of a tenant',
-            notes: 'notes for later',
-            tags: ['api'],
-            validate : {
-              query : Joi.object({
-                tenantId : Joi.string()
-                  .required()
-              })
-            },
-          
-            handler: getTenantsAssets
           }
         },
         {
@@ -58,9 +41,9 @@ const plugin = {
         },
         {
           method: 'POST',
-          path: '/assets/newAsset',
+          path: '/assets/new',
           options: {
-            description: 'Returns the total supply of asset with id {id}',
+            description: 'Adds a new asset to the database',
             notes: 'notes for later',
             tags: ['api'],
             validate : {
@@ -84,7 +67,7 @@ const plugin = {
         },
         {
           method: 'POST',
-          path: '/assets/addShareholders',
+          path: '/assets/newShareholder',
           options: {
             description: 'Adds shareholder to an asset',
             notes: 'notes for later',
@@ -101,10 +84,28 @@ const plugin = {
           }
         },
         {
-          method: 'GET',
-          path: '/assets/owners', //?tokenId = {tokenId}
+          method: 'DELETE',
+          path: '/assets/removeShareholder',
           options: {
-            description: 'Returns the total supply of asset with id {id}',
+            description: 'Removes a shareholder from an asset',
+            notes: 'notes for later',
+            tags: ['api'],
+            validate : {
+                payload : Joi.object({
+                    userId : Joi.string()
+                        .required(),
+                    assetId : Joi.string()
+                        .required()
+                })
+            },
+            handler: removeShareholderHandler
+          }
+        },
+        {
+          method: 'GET',
+          path: '/assets/shareholders', //?tokenId = {tokenId}
+          options: {
+            description: 'Retrieves all shareholders of an asset',
             notes: 'notes for later',
             tags: ['api'],
             validate : {
@@ -145,13 +146,6 @@ const getAllAssetsHandler = async (request : Request, h : ResponseToolkit) => {
   return h.response({assets}).code(200);
 }
 
-const getTenantsAssets = async (request : Request, h : ResponseToolkit) => {
-  const { tenantId } = request.query;
-  const assets = await assetsManagementService.getTenantsAssets(tenantId);
-
-  return h.response({assets}).code(200);
-}
-
 const totalSupplyHandler = async (request: Request, h: ResponseToolkit) => {
     const {id} = request.params;
     const totalSupply = await assetsManagementService.totalSupply(id);
@@ -179,6 +173,13 @@ const getAssetOwnersHandler = async (request : Request, h : ResponseToolkit) => 
 const addShareholdersHandler = async (request : Request, h : ResponseToolkit) => {
   const { userId, assetId } = request.payload as any;
   const result = await users_assets_service.addShareholders(userId, assetId);
+
+  return h.response({result}).code(200);
+}
+
+const removeShareholderHandler = async (request : Request, h : ResponseToolkit) => {
+  const { userId, assetId } = request.payload as any;
+  const result = await users_assets_service.removeShareholder(userId, assetId);
 
   return h.response({result}).code(200);
 }

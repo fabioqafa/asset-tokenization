@@ -15,7 +15,7 @@ const options = {
           method: 'GET',
           path: '/accounts/{address}/tokens',
           options: {
-            description: 'Account Balance',
+            description: 'Account balance',
             notes: 'Shows the balance of the account',
             tags: ['api'],
             validate: {
@@ -74,7 +74,7 @@ const options = {
         },
         {
           method: 'POST',
-          path: '/accounts/newAccount',
+          path: '/accounts/new',
           options: {
             description: 'Creates an account for the user',
             notes: 'Account in blockchain',

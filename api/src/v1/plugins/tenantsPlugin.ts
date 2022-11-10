@@ -2,6 +2,7 @@ import TenantsService from "../services/TenantsService";
 import { Server, Request, ResponseToolkit } from '@hapi/hapi';
 import { PluginObject } from '@hapi/glue';
 import Joi from "joi";
+import AssetsManagementService from "../services/AssetsManagementService";
 
 const options = {
     route : true,
@@ -13,13 +14,30 @@ const plugin = {
       server.route([
         {
           method: 'GET',
-          path: '/tenants/allTenants',
+          path: '/tenants',
           options: {
             description: 'Returns all tenants',
             notes: 'notes for later',
             tags: ['api'],
             
             handler: getAllTenantsHandler
+          }
+        },
+        {
+          method: 'GET',
+          path: '/tenants/tenantsAssets', //?tenantId = {tenantId}
+          options: {
+            description: 'Returns all assets of a tenant',
+            notes: 'notes for later',
+            tags: ['api'],
+            validate : {
+              query : Joi.object({
+                tenantId : Joi.string()
+                  .required()
+              })
+            },
+          
+            handler: getTenantsAssets
           }
         },
         {
@@ -41,7 +59,7 @@ const plugin = {
         },
         {
           method: 'POST',
-          path: '/tenants/newTenant',
+          path: '/tenants/new',
           options: {
             description: 'Creates a new tenant',
             notes: 'notes for later',
@@ -61,6 +79,7 @@ const plugin = {
   };
 
   const tenantService = new TenantsService();
+  const assetsManagementService = new AssetsManagementService();
 
   const getAllTenantsHandler = async (request : Request, h : ResponseToolkit) => {
     const tenants = await tenantService.getAllTenants();
@@ -73,6 +92,13 @@ const plugin = {
     const tenant = await tenantService.getTenant(name as string);
 
     return h.response({tenant}).code(200);
+  }
+
+  const getTenantsAssets = async (request : Request, h : ResponseToolkit) => {
+    const { tenantId } = request.query;
+    const assets = await assetsManagementService.getTenantsAssets(tenantId);
+
+    return h.response({assets}).code(200);
   }
 
   const createTenantHandler = async (request : Request, h : ResponseToolkit) => {

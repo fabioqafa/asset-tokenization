@@ -76,6 +76,21 @@ class Users_Assets {
             console.error(error); throw error;
         }
     }
+
+    removeShareholder = async(userId : string, assetId : string) : Promise<any> => {
+        try {
+            const result = await prisma.users_Assets.delete({
+                where : {
+                    assetId_userId : {
+                        assetId,
+                        userId
+                    }
+                }
+            })
+        } catch (error) {
+            console.error(error); throw error;
+        }
+    }
     
 }
 

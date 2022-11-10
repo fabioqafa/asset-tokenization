@@ -13,9 +13,9 @@ const options = {
       server.route([
         {
             method: 'GET',
-            path: '/accountKeys/allKeys',
+            path: '/accountKeys',
             options: {
-              description: 'Returns all the keys',
+              description: 'Shows all the keys',
               notes: 'notes for later',
               tags: ['api'],
   
@@ -24,9 +24,9 @@ const options = {
           },
           {
             method: 'GET',
-            path: '/accountKeys/userKeys', //?username = {username}
+            path: '/accountKeys/user', //?username = {username}
             options: {
-              description: 'Returns user keys',
+              description: 'Shows user keys',
               notes: 'notes for later',
               tags: ['api'],
               validate : {
@@ -41,9 +41,9 @@ const options = {
           },
           {
             method: 'POST',
-            path: '/accountKeys/newKeys',
+            path: '/accountKeys/new',
             options: {
-              description: 'Creates new keys',
+              description: 'Saves user blockchain keys in the database',
               notes: 'notes for later',
               tags: ['api'],
               validate : {

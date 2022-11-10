@@ -15,7 +15,7 @@ const options = {
       server.route([
         {
           method: 'GET',
-          path: '/users/allUsers',
+          path: '/users',
           options: {
             description: 'Returns all users of the platform',
             notes: 'notes for later',
@@ -44,7 +44,7 @@ const options = {
           method: 'GET',
           path: '/users/user', //?email = {email}
           options: {
-            description: 'Returns user',
+            description: 'Returns user by its email',
             notes: 'notes for later',
             tags: ['api'],
             validate : {
@@ -60,7 +60,7 @@ const options = {
           method: 'GET',
           path: '/users/assets', //?username = {username}
           options: {
-            description: 'Returns all assets where user is shareholder',
+            description: 'Shows all assets where user is a shareholder',
             notes: 'notes for later',
             tags: ['api'],
             validate : {
