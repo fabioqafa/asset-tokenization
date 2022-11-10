@@ -9,7 +9,7 @@ class RolesService {
             return minterRole;
             
         } catch (error) {
-            console.error(error); throw {error :"Smart contract error"};
+            console.error(error); throw error;
         }
     }
 
@@ -20,7 +20,7 @@ class RolesService {
             return pauserRole;
             
         } catch (error) {
-            console.error(error); throw {error :"Smart contract error"};
+            console.error(error); throw error;
         }
     }
 
@@ -31,7 +31,7 @@ class RolesService {
             return defaultAdminRole;
             
         } catch (error) {
-            console.error(error); throw {error :"Smart contract error"};
+            console.error(error); throw error;
         }
     }
 }

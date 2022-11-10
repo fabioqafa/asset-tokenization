@@ -22,7 +22,7 @@ class AccountsService {
             return balance;
             
         } catch (error) {
-            console.error(error); throw "Smart contract error";
+            console.error(error); throw error;
         }
     }
 
@@ -33,7 +33,7 @@ class AccountsService {
             return result;
             
         } catch (error) {
-            console.error(error); throw "Smart contract error";
+            console.error(error); throw error;
         }
     }
     
@@ -44,7 +44,7 @@ class AccountsService {
             return result;
             
         } catch (error) {
-            console.error(error); throw "Smart contract error";
+            console.error(error); throw error;
         }
     }   
 

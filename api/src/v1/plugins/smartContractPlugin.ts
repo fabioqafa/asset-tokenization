@@ -66,7 +66,7 @@ const accountKeysService = new AccountKeysService();
 const getDecimalsHandler = async (request : Request, h : ResponseToolkit) => {
     const decimals = await smartContractData.getDecimals();
 
-    return h.response({decimals}).code(200);
+    return h.response({"Smart contract decimals" : decimals}).code(200);
 }
 
 const pauseHandler = async (request : Request, h : ResponseToolkit) => {

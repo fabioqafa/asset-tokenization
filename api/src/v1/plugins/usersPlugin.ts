@@ -152,15 +152,19 @@ const options = {
   }
 
   const logInHandler = async (request : Request, h : ResponseToolkit) => {
-    // if (request.pre.apiVersion == 1) {
+    if (request.pre.apiVersion == 1) {
       const { username, password } = request.payload as any;
       const token = await usersService.logIn(username, password)
       return h.response(token).code(200);
-    //}
+    }
 
-    // else if (request.pre.apiVersion == 2) {
-    //   return "Ok";
-    // }
+    else if (request.pre.apiVersion == 2) {
+      return "Ok";
+    }
+
+    else {
+      throw console.error("Bad version");
+    }
     
   }
 
