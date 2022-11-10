@@ -2,7 +2,6 @@ import SmartContractData from '../services/SmartContractService';
 import { Server, Request, ResponseToolkit } from '@hapi/hapi';
 import { PluginObject } from '@hapi/glue';
 import Joi from 'joi';
-import AccountKeysService from '../services/AccountKeysService';
 
 const options = {
     route: true
@@ -30,7 +29,16 @@ const options = {
             description: 'Pauses smart contract',
             notes: 'notes',
             tags: ['api'],
-            
+            validate : {
+                payload : Joi.object({
+                    signerAddress : Joi.string()
+                        .required()
+                        .description("Signer of the transaction"),
+                    signerPrivateKey : Joi.string()
+                        .required()
+                        .description("Private key to sign the transaction")
+                })
+            },
             handler: pauseHandler
           }
         },
@@ -41,7 +49,16 @@ const options = {
               description: 'Unpauses smart contract',
               notes: 'notes',
               tags: ['api'],
-              
+              validate : {
+                  payload : Joi.object({
+                      signerAddress : Joi.string()
+                          .required()
+                          .description("Signer of the transaction"),
+                      signerPrivateKey : Joi.string()
+                          .required()
+                          .description("Private key to sign the transaction")
+                  })
+              },
               handler: unpauseHandler
             }
           },
@@ -61,32 +78,24 @@ const options = {
   };
 
 const smartContractData = new SmartContractData();
-const accountKeysService = new AccountKeysService();
 
 const getDecimalsHandler = async (request : Request, h : ResponseToolkit) => {
     const decimals = await smartContractData.getDecimals();
+    //console.log(request.auth.credentials)
+    //console.log(request.auth)
 
     return h.response({"Smart contract decimals" : decimals}).code(200);
 }
 
 const pauseHandler = async (request : Request, h : ResponseToolkit) => {
-    const { username } = request.auth.artifacts.decoded as any;
-    const keys = await accountKeysService.getUserAccountKeys(username as string);
-
-    const signerAddress = keys.publicKey;
-    const signerPrivateKey = keys.privateKey;
-    
+    const {signerAddress, signerPrivateKey} = request.payload as any;
     const transactionReceipt= await smartContractData.pause(signerAddress, signerPrivateKey);
 
     return h.response({transactionReceipt}).code(200);
 }
 
 const unpauseHandler = async (request : Request, h : ResponseToolkit) => {
-    const { username } = request.auth.artifacts.decoded as any;
-    const keys = await accountKeysService.getUserAccountKeys(username as string);
-
-    const signerAddress = keys.publicKey;
-    const signerPrivateKey = keys.privateKey;
+    const {signerAddress, signerPrivateKey} = request.payload as any;
     const transactionReceipt = await smartContractData.unpause(signerAddress, signerPrivateKey);
 
     return h.response({transactionReceipt}).code(200);

@@ -29,32 +29,37 @@ const options = {
               description: 'Returns user keys',
               notes: 'notes for later',
               tags: ['api'],
-              
+              validate : {
+                query : Joi.object({
+                  username : Joi.string()
+                      .required()
+                })
+              },
   
               handler: getUserKeysHandler
             }
           },
-          // {
-          //   method: 'POST',
-          //   path: '/accountKeys/newKeys',
-          //   options: {
-          //     description: 'Creates new keys',
-          //     notes: 'notes for later',
-          //     tags: ['api'],
-          //     validate : {
-          //       payload : Joi.object({
-          //         publicKey : Joi.string()
-          //             .required(),
-          //         privateKey : Joi.string()
-          //             .required(),
-          //         userId : Joi.string()
-          //             .required()
-          //       })
-          //     },
+          {
+            method: 'POST',
+            path: '/accountKeys/newKeys',
+            options: {
+              description: 'Creates new keys',
+              notes: 'notes for later',
+              tags: ['api'],
+              validate : {
+                payload : Joi.object({
+                  publicKey : Joi.string()
+                      .required(),
+                  privateKey : Joi.string()
+                      .required(),
+                  userId : Joi.string()
+                      .required()
+                })
+              },
   
-          //     handler: createAccountKeyHandler
-          //   }
-          // },
+              handler: createAccountKeyHandler
+            }
+          },
       ])
     }
   }
@@ -68,7 +73,7 @@ const options = {
   }
 
   const getUserKeysHandler = async (request: Request, h: ResponseToolkit) => {
-    const { username } = request.auth.artifacts.decoded as any;
+    const { username } = request.query;
     const keys = await accountKeysService.getUserAccountKeys(username as string);
 
     return h.response({keys}).code(200);

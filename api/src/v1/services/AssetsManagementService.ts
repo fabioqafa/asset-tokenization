@@ -46,21 +46,6 @@ class AssetsManagementService {
             console.error(error); throw error;
         }
     }
-
-    getAsset = async(tokenId : number) : Promise<Assets> => {
-        try {
-            const asset = await prisma.assets.findUnique({
-                where : {
-                    tokenId
-                }
-            })
-
-            return asset;
-            
-        } catch (error) {
-            console.error(error); throw error;
-        }
-    }
     
     totalSupply = async (id: number) : Promise<number> => {
         try {
@@ -69,7 +54,7 @@ class AssetsManagementService {
             return totalSupply;
             
         } catch (error) {
-            console.error(error); throw {error :"Smart contract error"};
+            console.error(error); throw error;
         }
     }
 
@@ -80,7 +65,7 @@ class AssetsManagementService {
             return result;
             
         } catch (error) {
-            console.error(error); throw {error :"Smart contract error"};
+            console.error(error); throw error;
         }
     }
 

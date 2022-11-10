@@ -1,6 +1,6 @@
 
 import { prisma } from "../../server";
-import { AccountKeys, Users } from "@prisma/client";
+import { AccountKeys } from "@prisma/client";
 
 class AccountKeysService {
 
@@ -29,30 +29,21 @@ class AccountKeysService {
         
     }
     
-    getUserAccountKeys = async(username : string) : Promise<AccountKeys | null> => { //one-to-one relation between tables accountkeys and users
+    getUserAccountKeys = async(username : string) : Promise<AccountKeys[]> => { //one-to-one relation between tables accountkeys and users
         
         try {
-            const accountKeys = await prisma.accountKeys.findFirst({
+            const accountKeys = await prisma.accountKeys.findMany({
                 where : {
                     user : {
                         username
                     }
                 }
             })
+        
             return accountKeys;
 
         } catch (error) {console.error(error); throw error;}
         
-    }
-
-    getUserFromKeys = async(publicKey : string) : Promise<AccountKeys | null> => {
-        const user = await prisma.accountKeys.findUnique({
-            where : {
-                publicKey : publicKey
-            }
-        });
-
-        return user;
     }
     
     createAccountKey = async(publicKey : string, privateKey : string, userId : string) : Promise<AccountKeys> => {
@@ -70,7 +61,7 @@ class AccountKeysService {
 
         } catch (error) {console.error(error); throw error;}
 
-    }
+    } 
 
 }
 
