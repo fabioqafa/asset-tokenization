@@ -85,24 +85,24 @@ const plugin = {
             handler: createAssetHandler
           }
         },
-        // {
-        //   method: 'POST',
-        //   path: '/assets/addShareholders',
-        //   options: {
-        //     description: 'Returns the total supply of asset with id {id}',
-        //     notes: 'notes for later',
-        //     tags: ['api'],
-        //     validate : {
-        //         payload : Joi.object({
-        //             userId : Joi.string()
-        //                 .required(),
-        //             assetId : Joi.string()
-        //                 .required()
-        //         })
-        //     },
-        //     handler: addShareholdersHandler
-        //   }
-        // },
+        {
+          method: 'POST',
+          path: '/assets/addShareholders',
+          options: {
+            description: 'Returns the total supply of asset with id {id}',
+            notes: 'notes for later',
+            tags: ['api'],
+            validate : {
+                payload : Joi.object({
+                    userId : Joi.string()
+                        .required(),
+                    assetId : Joi.string()
+                        .required()
+                })
+            },
+            handler: addShareholdersHandler
+          }
+        },
         {
           method: 'GET',
           path: '/assets/owners', //?tokenId = {tokenId}
