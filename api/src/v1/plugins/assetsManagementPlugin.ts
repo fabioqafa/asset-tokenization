@@ -41,7 +41,7 @@ const plugin = {
         },
         {
           method: 'POST',
-          path: '/assets/new',
+          path: '/assets',
           options: {
             description: 'Adds a new asset to the database',
             notes: 'notes for later',

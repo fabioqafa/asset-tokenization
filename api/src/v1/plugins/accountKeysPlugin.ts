@@ -41,7 +41,7 @@ const options = {
           },
           {
             method: 'POST',
-            path: '/accountKeys/new',
+            path: '/accountKeys',
             options: {
               description: 'Saves user blockchain keys in the database',
               notes: 'notes for later',

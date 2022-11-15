@@ -74,7 +74,7 @@ const options = {
         },
         {
           method: 'POST',
-          path: '/accounts/new',
+          path: '/accounts',
           options: {
             description: 'Creates an account for the user',
             notes: 'Account in blockchain',

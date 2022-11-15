@@ -59,7 +59,7 @@ const plugin = {
         },
         {
           method: 'POST',
-          path: '/tenants/new',
+          path: '/tenants',
           options: {
             description: 'Creates a new tenant',
             notes: 'notes for later',
