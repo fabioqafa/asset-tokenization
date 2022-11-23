@@ -61,6 +61,7 @@ const plugin = {
           method: 'POST',
           path: '/tenants',
           options: {
+            auth: false,
             description: 'Creates a new tenant',
             notes: 'notes for later',
             tags: ['api'],
