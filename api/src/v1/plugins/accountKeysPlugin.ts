@@ -8,7 +8,7 @@ const options = {
   };
 
   const plugin = {
-    name: 'app/accountKeys',
+    name: 'app/v1/accountKeys',
     register: async function (server: Server) {
       server.route([
         {

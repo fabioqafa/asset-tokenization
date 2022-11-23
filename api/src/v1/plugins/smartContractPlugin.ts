@@ -8,7 +8,7 @@ const options = {
   };
   
   const plugin = {
-    name: 'app/smartcontractdata',
+    name: 'app/v1/smartcontractdata',
     register: async function (server: Server) {
       server.route([
         {

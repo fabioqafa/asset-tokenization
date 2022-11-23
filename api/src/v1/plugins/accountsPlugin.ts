@@ -8,7 +8,7 @@ const options = {
   };
   
   const plugin = {
-    name: 'app/accounts',
+    name: 'app/v1/accounts',
     register: async function (server: Server) {
       server.route([
         {
@@ -91,9 +91,9 @@ const options = {
   const accountsService = new AccountsService();
 
   const createAccountHandler = async (request: Request, h: ResponseToolkit) => {
-    const accountData = await accountsService.createAccount();
+    const account = await accountsService.createAccount();
 
-    return h.response(accountData).code(200);
+    return h.response({account}).code(200);
   }
 
   const getBalanceHandler = async (request: Request, h: ResponseToolkit) => {
@@ -101,7 +101,7 @@ const options = {
     const {token_id} = request.query;
     const balance = await accountsService.getBalance(token_id, address);
 
-    return h.response({address, token_id, balance}).code(200);
+    return h.response({balanceData : {address, token_id, balance}}).code(200);
   }
 
   const hasRoleHandler = async (request: Request, h: ResponseToolkit) => {
@@ -109,14 +109,14 @@ const options = {
     const {role} = request.query;
     const hasRole = await accountsService.hasRole(role as string, address);
 
-    return h.response({address, role, hasRole}).code(200);
+    return h.response({data: {address, role, hasRole}}).code(200);
   }
 
   const isWhitelistedHandler = async (request: Request, h: ResponseToolkit) => {
     const {address} =  request.params;
     const isWhitelisted = await accountsService.isWhitelisted(address);
 
-    return h.response({address, isWhitelisted}).code(200);
+    return h.response({data: {address, isWhitelisted}}).code(200);
   }
 
 

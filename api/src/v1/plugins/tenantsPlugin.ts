@@ -9,7 +9,7 @@ const options = {
 }
 
 const plugin = {
-    name: 'app/tenants',
+    name: 'app/v1/tenants',
     register: async function (server: Server) {
       server.route([
         {

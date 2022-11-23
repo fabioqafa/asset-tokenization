@@ -7,7 +7,7 @@ const options = {
   };
   
 const plugin = {
-    name: 'app/roles',
+    name: 'app/v1/roles',
     register: async function (server: Server) {
       server.route([
         {

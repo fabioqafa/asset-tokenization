@@ -9,7 +9,7 @@ const options = {
   };
 
 const plugin = {
-    name: 'app/assets',
+    name: 'app/v1/assets',
     register: async function (server: Server) {
       server.route([
         {
@@ -150,7 +150,7 @@ const totalSupplyHandler = async (request: Request, h: ResponseToolkit) => {
     const {id} = request.params;
     const totalSupply = await assetsManagementService.totalSupply(id);
     if (totalSupply > 0)
-      {return h.response({id, totalSupply}).code(200);}
+      {return h.response({data: {id, totalSupply}}).code(200);}
     else 
       {return h.response().code(404);}
     

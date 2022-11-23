@@ -8,7 +8,7 @@ const options = {
   };
   
   const plugin = {
-    name: 'app/tokenmanagement',
+    name: 'app/v1/tokenmanagement',
     register: async function (server: Server) {
       server.route([
         {

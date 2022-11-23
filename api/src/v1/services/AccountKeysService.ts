@@ -29,14 +29,20 @@ class AccountKeysService {
         
     }
     
-    getUserAccountKeys = async(username : string) : Promise<AccountKeys[]> => { //one-to-one relation between tables accountkeys and users
+    getUserAccountKeys = async(username : string) : Promise<AccountKeys> => { //one-to-one relation between tables accountkeys and users
         
         try {
-            const accountKeys = await prisma.accountKeys.findMany({
+            //First need to get user id from the database
+            const user = await prisma.users.findUnique({
                 where : {
-                    user : {
-                        username
-                    }
+                    username
+                }
+            })
+
+            //We need to insert user id here in order to get its unique keys
+            const accountKeys = await prisma.accountKeys.findUnique({
+                where : {
+                    userId: user.id
                 }
             })
         

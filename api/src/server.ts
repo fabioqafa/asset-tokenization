@@ -52,7 +52,7 @@ const init = async () => {
       method: 'GET',
       path: '/',
       options : {
-        auth : false
+        auth : false,
       },
       handler: (request : Request, h : ResponseToolkit) => {
         return {

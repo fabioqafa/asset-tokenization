@@ -5,12 +5,13 @@ import * as jwt from "jsonwebtoken";
 import UsersService from '../services/UsersService';
 import Users_Assets from '../services/Users_AssetsService';
 import hapiAuthJwt2 from 'hapi-auth-jwt2';
+import AccountsService from '../services/AccountsService';
 
 const options = {
     route: true
   };
   const plugin = {
-    name: 'app/users',
+    name: 'app/v1/users',
     register: async function (server: Server) {
       server.route([
         {
@@ -145,7 +146,7 @@ const options = {
     const {email, username, password, tenantId} = request.payload as any;
     const user = await usersService.signUp(email as string, username as string, password as string, tenantId as string);
 
-    return h.response("OK").code(201);
+    return h.response({user}).code(201);
   }
 
   const getOwnersAssetHandler = async (request: Request, h: ResponseToolkit) => {
@@ -159,12 +160,12 @@ const options = {
     if (request.pre.apiVersion == 1) {
       const { username, password } = request.payload as any;
       const token = await usersService.logIn(username, password)
-      return h.response(token).code(200);
+      return h.response({token}).code(200);
     }
 
     else if (request.pre.apiVersion == 2) {
       return "Ok";
-    }
+    } 
 
     else {
       throw console.error("Bad version");

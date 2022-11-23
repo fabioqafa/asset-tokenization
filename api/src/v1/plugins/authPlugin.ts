@@ -23,7 +23,7 @@ const validate = async (decoded : any, request : Request, h : ResponseToolkit) =
 }
 
 const plugin = {
-    name: 'app/auth',
+    name: 'app/v1/auth',
     register: async function (server: Server) {
         await server.register({
             plugin: require('hapi-auth-jwt2')

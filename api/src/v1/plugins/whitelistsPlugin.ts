@@ -8,7 +8,7 @@ const options = {
   };
   
   const plugin = {
-    name: 'app/whitelist',
+    name: 'app/v1/whitelist',
     register: async function (server: Server) {
       server.route([
         {
