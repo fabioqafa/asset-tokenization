@@ -77,6 +77,7 @@ const options = {
           method: 'POST',
           path: '/users/signup',
           options: {
+            auth : false,
             description: 'Registers an user for the first time',
             notes: 'notes for later',
             tags: ['api'],

@@ -12,7 +12,7 @@ class TokenManagementService {
             return transactionReceipt;
 
         } catch (error) {
-            console.error(error); throw error;
+            throw error;
         }
         
     }
@@ -25,7 +25,7 @@ class TokenManagementService {
             return transactionReceipt;
 
         } catch(error) {
-            console.error(error); throw error;
+            throw error;
         }
     }
 }

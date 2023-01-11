@@ -41584,12 +41584,12 @@
         }
       },
       "links": {},
-      "address": "0x70938E7f323a5219d33B21c985E03fc352e62f69",
-      "transactionHash": "0x6a098b23cd8e24338bc0bb040eccf3023d192d03c6ce2ef340d93f19bb9842f3"
+      "address": "0xb01Db05912A6c4EB76fb19b7bCe179C43e5c6637",
+      "transactionHash": "0x4c925d62f51ec484171114434fc1754ae002732d40bf53a4dbc5eadff8cbf98b"
     }
   },
   "schemaVersion": "3.4.10",
-  "updatedAt": "2022-10-31T08:53:06.010Z",
+  "updatedAt": "2022-12-09T10:23:02.690Z",
   "networkType": "ethereum",
   "devdoc": {
     "details": "{ERC1155} token, including:  - a minter role that allows for token minting (creation)  - a pauser role that allows to stop all token transfers This contract uses {AccessControl} to lock permissioned functions using the different roles The account that deploys the contract will be granted the minter and pauser roles, as well as the default admin role, which will let it grant both minter and pauser roles to other accounts.",

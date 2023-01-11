@@ -17,7 +17,7 @@ class ContractProvider {
         const web3Instance = new Web3("https://polygon-mumbai.g.alchemy.com/v2/m2FmG0mzHNpJ-O59iS4LQIRaOZjHJewD");
         const chainId = await web3Instance.eth.getChainId() as number;
         const contractInstance = new web3Instance.eth.Contract(contractdata.abi as AbiItem[], contractdata.networks[chainId].address as string);
-        
+
         web3 = web3Instance;
         networkId = chainId;
         contract = contractInstance;

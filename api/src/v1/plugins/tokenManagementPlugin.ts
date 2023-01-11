@@ -2,6 +2,8 @@ import TokenManagementService from '../services/TokenManagementService';
 import { Server, Request, ResponseToolkit } from '@hapi/hapi';
 import { PluginObject } from '@hapi/glue';
 import Joi from 'joi';
+import { Boom, boomify } from '@hapi/boom';
+import { web3 } from '../services/1.ContractProvider';
 
 const options = {
     route: true
@@ -70,10 +72,14 @@ const options = {
 const tokenManagementService = new TokenManagementService();
 
 const issueTokensHandler = async (request : Request, h : ResponseToolkit) => {
+    try {
         const {id, amount, issuerAddress, issuerPrivateKey} = request.payload as any;
         const transactionReceipt = await tokenManagementService.issueTokens(id as number, amount as number, issuerAddress as string, issuerPrivateKey as string);
-    
+        
         return h.response({transactionReceipt}).code(200);
+    } catch (error) {
+        throw error;
+    }
 }
 
 const transferTokensHandler = async (request : Request, h : ResponseToolkit) => {

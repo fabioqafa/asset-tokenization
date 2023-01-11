@@ -24,8 +24,11 @@
   },
   "main": "index.js",
   "scripts": {
+    "build-ts": "tsc",
+    "build": "npm run build-ts",
+    "serve": "nodemon dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./src/server.ts"
+    "start": "npm run serve"
   },
   "author": "",
   "license": "ISC",
@@ -35,6 +38,9 @@
     "@types/hapi__inert": "^5.2.3",
     "@types/hapi__vision": "^5.5.3",
     "@types/jsonwebtoken": "^8.5.9",
+    "@typescript-eslint/eslint-plugin": "^5.44.0",
+    "@typescript-eslint/parser": "^5.44.0",
+    "eslint": "^8.28.0",
     "nodemon": "^2.0.20",
     "prisma": "^4.5.0",
     "ts-node": "^10.9.1"
